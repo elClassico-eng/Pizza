@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
 export function Sort() {
+    const [openPopup, setOpenPopup] = useState(false);
+    const [activeList, setActiveList] = useState(0);
+
+    const popupList = ["популярности", "цене", "алфавиту"];
+
+    const onClickItems = (index) => {
+        setActiveList(index);
+        setOpenPopup(!openPopup);
+    };
+
     return (
         <>
-            <div class="sort">
-                <div class="sort__label">
+            <div className="sort">
+                <div className="sort__label">
                     <svg
                         width="10"
                         height="6"
@@ -18,15 +28,27 @@ export function Sort() {
                         />
                     </svg>
                     <b>Сортировка по:</b>
-                    <span>популярности</span>
+                    <span onClick={() => setOpenPopup(!openPopup)}>
+                        {popupList[activeList]}
+                    </span>
                 </div>
-                <div class="sort__popup">
-                    <ul>
-                        <li class="active">популярности</li>
-                        <li>цене</li>
-                        <li>алфавиту</li>
-                    </ul>
-                </div>
+                {openPopup && (
+                    <div className="sort__popup">
+                        <ul>
+                            {popupList.map((title, index) => (
+                                <li
+                                    key={index}
+                                    onClick={() => onClickItems(index, title)}
+                                    className={
+                                        activeList === index ? "active" : ""
+                                    }
+                                >
+                                    {title}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
             </div>
         </>
     );

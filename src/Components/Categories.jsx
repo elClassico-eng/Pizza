@@ -13,11 +13,12 @@ export function Categories() {
     ];
 
     return (
-        <div class="content__top">
-            <div class="categories">
+        <div className="content__top">
+            <div className="categories">
                 <ul>
                     {categories.map((title, index) => (
                         <li
+                            key={index}
                             onClick={() => setActiveCategories(index)}
                             className={
                                 activeCategories === index ? "active" : ""
