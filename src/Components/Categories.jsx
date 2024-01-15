@@ -1,34 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 
-export function Categories() {
-    const [activeCategories, setActiveCategories] = useState(0);
+import { categories } from "../data/DataComponents";
 
-    const categories = [
-        "Все",
-        "Мясные",
-        "Вегатарианские",
-        "Гриль",
-        "Острые",
-        "Закрытые",
-    ];
-
+export function Categories({ categoriesID, onClickCategory }) {
     return (
-        <div className="content__top">
-            <div className="categories">
-                <ul>
-                    {categories.map((title, index) => (
-                        <li
-                            key={index}
-                            onClick={() => setActiveCategories(index)}
-                            className={
-                                activeCategories === index ? "active" : ""
-                            }
-                        >
-                            {title}
-                        </li>
-                    ))}
-                </ul>
-            </div>
+        <div className="categories">
+            <ul>
+                {categories.map((title, index) => (
+                    <li
+                        key={index}
+                        onClick={() => onClickCategory(index)}
+                        className={categoriesID === index ? "active" : ""}
+                    >
+                        {title}
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }

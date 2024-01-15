@@ -8,6 +8,30 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+
+        @media (max-width: 645px) {
+            flex-direction: column;
+            gap: 20px;
+
+            .button--cart {
+                span:first-child {
+                    display: none;
+                }
+                .button__delimiter {
+                    display: none;
+                }
+            }
+
+            .header__logo {
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                .header__title {
+                    text-align: center;
+                }
+            }
+        }
     }
 
     &__logo {

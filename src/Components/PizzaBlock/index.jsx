@@ -6,7 +6,7 @@ export function PizzaBlock({ id, imageUrl, price, title, sizes, types }) {
     const typesName = ["тонкое", "традиционное"];
 
     return (
-        <>
+        <div className="pizza-block-wrapper">
             <div className="pizza-block">
                 <img
                     className="pizza-block__image"
@@ -58,6 +58,6 @@ export function PizzaBlock({ id, imageUrl, price, title, sizes, types }) {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }

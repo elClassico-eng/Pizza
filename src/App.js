@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, createContext } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { Header } from "./Components/Header";
@@ -8,9 +8,12 @@ import { NotFound } from "./pages/NotFound";
 
 import "./scss/app.scss";
 
+export const RootContext = createContext({});
+
 export function App() {
+    const [searchItems, setSearchItems] = useState("");
     return (
-        <>
+        <RootContext.Provider value={{ searchItems, setSearchItems }}>
             <div className="wrapper">
                 <Header />
                 <div className="content">
@@ -21,6 +24,6 @@ export function App() {
                     </Routes>
                 </div>
             </div>
-        </>
+        </RootContext.Provider>
     );
 }
