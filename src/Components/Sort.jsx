@@ -33,9 +33,9 @@ export function Sort({ sortItems, onClickSort }) {
             {openPopup && (
                 <div className="sort__popup">
                     <ul>
-                        {popupList.map((obj, index) => (
+                        {popupList.map((obj) => (
                             <li
-                                key={index}
+                                key={obj.name}
                                 onClick={() => onClickItems(obj)}
                                 className={
                                     sortItems.name === obj.name ? "active" : ""

@@ -5,6 +5,10 @@ import { RootContext } from "../../App";
 
 export const Search = () => {
     const { searchItems, setSearchItems } = useContext(RootContext);
+
+    const clearSearch = () => {
+        setSearchItems("");
+    };
     return (
         <div className={styles.root}>
             <svg
@@ -27,6 +31,7 @@ export const Search = () => {
             {searchItems && (
                 <svg
                     className={styles.close}
+                    onClick={clearSearch}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 50 50"
                     width="50px"

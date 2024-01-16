@@ -2,7 +2,7 @@ import React from "react";
 
 import { categories } from "../data/DataComponents";
 
-export function Categories({ categoriesID, onClickCategory }) {
+export function Categories({ category, onClickCategory }) {
     return (
         <div className="categories">
             <ul>
@@ -10,7 +10,7 @@ export function Categories({ categoriesID, onClickCategory }) {
                     <li
                         key={index}
                         onClick={() => onClickCategory(index)}
-                        className={categoriesID === index ? "active" : ""}
+                        className={category === index ? "active" : ""}
                     >
                         {title}
                     </li>

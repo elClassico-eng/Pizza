@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
+import { useSelector, useDispatch } from "react-redux";
+import { setCategoriesID } from "../redux/slices/filterSlice";
+
 import { Categories } from "../Components/Categories";
 import { Sort } from "../Components/Sort";
 import { PizzaBlock } from "../Components/PizzaBlock";
@@ -9,8 +12,10 @@ import { PizzaSkeleton } from "../Components/PizzaBlock/PizzaSkeleton";
 import { RootContext } from "../App";
 
 export function Home() {
+    const category = useSelector((state) => state.filter.categoriesID);
+    const dispatch = useDispatch();
+
     const [pizzasItems, setPizzasItems] = useState([]);
-    const [categoriesID, setCategoriesID] = useState(0);
     const [sortItems, setSortItems] = useState({
         name: "популярности",
         description: "rating",
@@ -24,13 +29,13 @@ export function Home() {
         return items.title.toLowerCase().includes(searchItems.toLowerCase());
     });
 
-    const categories = categoriesID > 0 ? `category=${categoriesID}` : "";
-    const sort = sortItems.description;
+    const categories = category > 0 ? `category=${category}` : "";
+    const sorts = sortItems.description;
     const sortOrder = sortItems.sortOrder;
     const searchValue = searchItems ? `&search=${searchItems}` : "";
 
-    const onClickCategory = (index) => {
-        setCategoriesID(index);
+    const onClickCategory = (id) => {
+        dispatch(setCategoriesID(id));
     };
 
     const onClickSort = (obj) => {
@@ -42,7 +47,7 @@ export function Home() {
             try {
                 setLoading(true);
                 const { data } = await axios.get(
-                    `https://657c99bc853beeefdb99afd3.mockapi.io/PizzaItems?${categories}&sortBy=${sort}&order=${sortOrder}${searchValue}`
+                    `https://657c99bc853beeefdb99afd3.mockapi.io/PizzaItems?${categories}&sortBy=${sorts}&order=${sortOrder}${searchValue}`
                 );
                 setPizzasItems(data);
             } catch (error) {
@@ -53,12 +58,12 @@ export function Home() {
             }
         })();
         window.scrollTo(0, 0);
-    }, [categoriesID, sortItems, searchItems]);
+    }, [category, sortItems, searchItems]);
     return (
         <div className="container">
             <div className="content__top">
                 <Categories
-                    categoriesID={categoriesID}
+                    category={category}
                     onClickCategory={onClickCategory}
                 />
                 <Sort sortItems={sortItems} onClickSort={onClickSort} />
