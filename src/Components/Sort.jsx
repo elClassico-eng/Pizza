@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 
+import { useDispatch } from "react-redux";
+import { setSort } from "../redux/slices/filterSlice";
+
 import { popupList } from "../data/DataComponents";
 
-export function Sort({ sortItems, onClickSort }) {
+export function Sort({ sort }) {
+    const dispatch = useDispatch();
     const [openPopup, setOpenPopup] = useState(false);
 
     const onClickItems = (obj) => {
-        onClickSort(obj);
+        dispatch(setSort(obj));
         setOpenPopup(!openPopup);
     };
 
@@ -27,7 +31,7 @@ export function Sort({ sortItems, onClickSort }) {
                 </svg>
                 <b>Сортировка по:</b>
                 <span onClick={() => setOpenPopup(!openPopup)}>
-                    {sortItems.name}
+                    {sort.name}
                 </span>
             </div>
             {openPopup && (
@@ -38,7 +42,7 @@ export function Sort({ sortItems, onClickSort }) {
                                 key={obj.name}
                                 onClick={() => onClickItems(obj)}
                                 className={
-                                    sortItems.name === obj.name ? "active" : ""
+                                    sort.name === obj.name ? "active" : ""
                                 }
                             >
                                 {obj.name}
