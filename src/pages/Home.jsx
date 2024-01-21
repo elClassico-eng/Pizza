@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setPizzaItems } from "../redux/slices/pizzaSlice";
-
-import axios from "axios";
+import { fetchItems } from "../redux/slices/pizzaSlice";
 
 import { Categories } from "../Components/Categories";
 import { Sort } from "../Components/Sort";
 import { PizzaBlock } from "../Components/PizzaBlock";
+import { ErrorData } from "../Components/ErrorDataBlock/ErrorData";
 import { PizzaSkeleton } from "../Components/PizzaBlock/PizzaSkeleton";
 
 export function Home() {
-    const [loading, setLoading] = useState(true);
     const { categoriesID, searchValue, sort } = useSelector(
         (state) => state.filter
     );
-    const { pizzasItems } = useSelector((state) => state.pizza);
+    const { pizzasItems, status } = useSelector((state) => state.pizza);
     const dispatch = useDispatch();
+
+    const filteredPizza = pizzasItems.filter((items) => {
+        return items.title.toLowerCase().includes(searchValue.toLowerCase());
+    });
 
     const categories = categoriesID > 0 ? `category=${categoriesID}` : "";
     const sorts = sort.description;
@@ -23,21 +25,13 @@ export function Home() {
     const search = searchValue ? `&search=${searchValue}` : "";
 
     useEffect(() => {
-        (async () => {
-            try {
-                setLoading(true);
-                const { data } = await axios.get(
-                    `https://657c99bc853beeefdb99afd3.mockapi.io/PizzaItems?${categories}&sortBy=${sorts}&order=${sortOrder}${search}`
-                );
-                dispatch(setPizzaItems(data));
-            } catch (error) {
-                console.error(error);
-            } finally {
-                setLoading(false);
-            }
-        })();
+        dispatch(fetchItems({ categories, sorts, sortOrder, search }));
         window.scrollTo(0, 0);
     }, [categoriesID, sort, searchValue]);
+
+    if (status === "error") {
+        return <ErrorData />;
+    }
 
     return (
         <div className="container">
@@ -51,17 +45,11 @@ export function Home() {
                 <h2 className="content__title">Все пиццы</h2>
             )}
             <div className="content__items">
-                {loading
+                {status === "loading"
                     ? [...new Array(6)].map((_, i) => <PizzaSkeleton key={i} />)
-                    : pizzasItems
-                          .filter((items) => {
-                              return items.title
-                                  .toLowerCase()
-                                  .includes(searchValue.toLowerCase());
-                          })
-                          .map((items) => (
-                              <PizzaBlock key={items.id} {...items} />
-                          ))}
+                    : filteredPizza.map((items) => (
+                          <PizzaBlock key={items.id} {...items} />
+                      ))}
             </div>
         </div>
     );

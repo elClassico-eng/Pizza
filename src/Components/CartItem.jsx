@@ -3,15 +3,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { addItem, removeItem, itemMinus } from "../redux/slices/cartSlices";
 
-export const CartItem = ({
-    id,
-    title,
-    types,
-    price,
-    imageUrl,
-    sizes,
-    count,
-}) => {
+export const CartItem = ({ id, title, type, price, imageUrl, size, count }) => {
     const dispatch = useDispatch();
     return (
         <>
@@ -25,7 +17,9 @@ export const CartItem = ({
                 </div>
                 <div className="cart__item-info">
                     <h3>{title}</h3>
-                    <p>{types}, 26 см.</p>
+                    <p>
+                        {type}, {size} см.
+                    </p>
                 </div>
                 <div className="cart__item-count">
                     <div
