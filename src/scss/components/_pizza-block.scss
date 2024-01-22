@@ -3,6 +3,7 @@
 .pizza-block-wrapper {
     display: flex;
     justify-content: center;
+    transition: box-shadow 1.9s ease-in, transform 1.9s ease-in;
     .pizza-block {
         width: 280px;
         text-align: center;
@@ -63,6 +64,11 @@
             font-size: 22px;
             line-height: 27px;
             letter-spacing: 0.015em;
+        }
+
+        &:hover {
+            box-shadow: 0px 14px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px);
         }
     }
 }

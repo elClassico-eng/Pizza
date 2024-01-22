@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchItems } from "../redux/slices/pizzaSlice";
 
+import { selectFilter } from "../redux/slices/filterSlice";
+import { selectPizzaItems } from "../redux/slices/pizzaSlice";
+
 import { Categories } from "../Components/Categories";
 import { Sort } from "../Components/Sort";
 import { PizzaBlock } from "../Components/PizzaBlock";
@@ -9,10 +12,8 @@ import { ErrorData } from "../Components/ErrorDataBlock/ErrorData";
 import { PizzaSkeleton } from "../Components/PizzaBlock/PizzaSkeleton";
 
 export function Home() {
-    const { categoriesID, searchValue, sort } = useSelector(
-        (state) => state.filter
-    );
-    const { pizzasItems, status } = useSelector((state) => state.pizza);
+    const { categoriesID, searchValue, sort } = useSelector(selectFilter);
+    const { pizzasItems, status } = useSelector(selectPizzaItems);
     const dispatch = useDispatch();
 
     const filteredPizza = pizzasItems.filter((items) => {

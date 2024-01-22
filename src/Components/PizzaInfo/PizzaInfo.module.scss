@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .infoBlock {
+        display: flex;
+        padding: 60px 0px 60px 80px;
+
+        .containerDescription {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+    .home {
+        background-color: rgba(0, 0, 0, 0.9);
+        color: #fff;
+        min-width: 100px;
+        border-radius: 30px;
+        padding: 10px 20px;
+        border: 1px solid transparent;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.15s ease-in-out,
+            border-color 0.15s ease-in-out;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 1);
+        }
+    }
+}

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { addItem } from "../../redux/slices/cartSlices";
+import { addItem, selectCartItemsByID } from "../../redux/slices/cartSlices";
+
+import { Link } from "react-router-dom";
 
 export function PizzaBlock({ id, imageUrl, price, title, sizes, types }) {
-    const cartItems = useSelector((state) =>
-        state.cart.cartItems.find((obj) => obj.id === id)
-    );
+    const cartItems = useSelector(selectCartItemsByID(id));
     const dispatch = useDispatch();
     const addedItem = cartItems ? cartItems.count : 0;
 
@@ -29,11 +29,13 @@ export function PizzaBlock({ id, imageUrl, price, title, sizes, types }) {
     return (
         <div className="pizza-block-wrapper">
             <div className="pizza-block">
-                <img
-                    className="pizza-block__image"
-                    src={imageUrl}
-                    alt="Pizza"
-                />
+                <Link to={`/pizza/${id}`}>
+                    <img
+                        className="pizza-block__image"
+                        src={imageUrl}
+                        alt="Pizza"
+                    />
+                </Link>
                 <h4 className="pizza-block__title">{title}</h4>
                 <div className="pizza-block__selector">
                     <ul>
