@@ -5,7 +5,7 @@ import { clearCart } from "../redux/slices/cartSlices";
 import { selectCart } from "../redux/slices/cartSlices";
 
 import { CartItem } from "../Components/CartItem";
-import { CartEmpty } from "../Components/CartEmpty";
+import { CartEmpty } from "../Components/CartEmpty.tsx";
 
 export const Cart = () => {
     const { cartItems, totalPrice } = useSelector(selectCart);

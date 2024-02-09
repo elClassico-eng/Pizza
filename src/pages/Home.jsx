@@ -28,7 +28,16 @@ export function Home() {
     useEffect(() => {
         dispatch(fetchItems({ categories, sorts, sortOrder, search }));
         window.scrollTo(0, 0);
-    }, [categoriesID, sort, searchValue]);
+    }, [
+        categoriesID,
+        sort,
+        searchValue,
+        categories,
+        sorts,
+        sortOrder,
+        search,
+        dispatch,
+    ]);
 
     if (status === "error") {
         return <ErrorData />;

@@ -22,7 +22,6 @@ export function Header() {
                         />
                         <div className="header__title">
                             <h1>Pizza Pouk</h1>
-                            <p>самая вкусная пицца во вселенной</p>
                         </div>
                     </div>
                 </Link>

@@ -5,6 +5,13 @@ import { addItem, removeItem, itemMinus } from "../redux/slices/cartSlices";
 
 export const CartItem = ({ id, title, type, price, imageUrl, size, count }) => {
     const dispatch = useDispatch();
+
+    const onClickMinus = () => {
+        if (count > 0) {
+            dispatch(itemMinus(id));
+        }
+    };
+
     return (
         <>
             <div className="cart__item">
@@ -23,7 +30,7 @@ export const CartItem = ({ id, title, type, price, imageUrl, size, count }) => {
                 </div>
                 <div className="cart__item-count">
                     <div
-                        onClick={() => dispatch(itemMinus(id))}
+                        onClick={onClickMinus}
                         className="button button--outline button--circle cart__item-count-minus"
                     >
                         <svg

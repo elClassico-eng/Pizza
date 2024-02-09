@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 import debounce from "lodash.debounce";
 
 import { useDispatch } from "react-redux";
@@ -22,7 +22,7 @@ export const Search = () => {
         debounce((str) => {
             dispatch(setSearchValue(str));
         }, 250),
-        []
+        [dispatch]
     );
 
     const changeInput = (e) => {

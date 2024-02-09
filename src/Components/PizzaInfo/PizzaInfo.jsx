@@ -1,21 +1,29 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { fetchItemsInfo } from "../../redux/slices/pizzaInfoSlice";
-import { Link, useParams } from "react-router-dom";
+import { selectPizzaInfo } from "../../redux/slices/pizzaInfoSlice";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 import { PizzaSkeleton } from "../PizzaBlock/PizzaSkeleton";
 
 import styles from "./PizzaInfo.module.scss";
 
 export const PizzaInfo = () => {
-    const { itemsInfo, status } = useSelector((state) => state.pizzaInfo);
+    const { itemsInfo, status } = useSelector(selectPizzaInfo);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { id } = useParams();
 
     useEffect(() => {
         dispatch(fetchItemsInfo({ id }));
     }, [id]);
+
+    if (!itemsInfo) {
+        navigate("/");
+        return <>Загрузка...</>;
+    }
+
     return (
         <div className={styles.container}>
             {status === "loading" ? (
